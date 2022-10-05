@@ -1,0 +1,25 @@
+.navigation {
+  width: 100%;
+  color: #ffffff;
+  height: 12vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // padding-block: 25px;
+  padding-inline: 30px;
+  background-color: #ffbe0b;
+  background-image: linear-gradient(120deg, #fcc221 0%, #f6bc50 100%);
+  letter-spacing: 1px;
+  font-family: "Barlow", sans-serif;
+  font-family: "PT Sans Narrow", sans-serif;
+  font-size: large;
+
+  & div {
+    display: flex;
+    align-items: center;
+
+    & h1 {
+      margin-right: 10px;
+    }
+  }
+}

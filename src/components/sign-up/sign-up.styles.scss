@@ -1,0 +1,78 @@
+.sign-up-form-container {
+  width: 25rem;
+  margin: auto;
+  padding: 45px 70px;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+  & h2 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  & input[type] {
+    display: block;
+    width: 100%;
+    margin: auto;
+    height: 38px;
+    padding: 5px 10px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    &:focus {
+      box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px;
+      border: 2px solid #ffbe0b;
+      outline: none;
+    }
+  }
+
+  & .login-btn {
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-bottom: 8px;
+    height: 38px;
+    width: 100%;
+  }
+
+  & .reg-pass-container {
+    display: flex;
+    justify-content: space-between;
+
+    & span {
+      font-size: 0.8rem;
+
+      &:last-child {
+        cursor: pointer;
+        color: grey;
+        // text-decoration: underline;
+      }
+    }
+  }
+
+  & .line-break {
+    color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    & .line {
+      width: 45%;
+      height: 0px;
+      border-top: 1px solid rgb(152, 151, 151);
+    }
+
+    & #line-break-text {
+      font-size: small;
+    }
+  }
+  
+  & .google-sign-in {
+    cursor: pointer;
+    width: 100%;
+    color: red;
+    height: 38px;
+  }
+}

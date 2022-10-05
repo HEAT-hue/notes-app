@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+// jshint esversion:6
+
+import { Route, Routes } from "react-router-dom";
+
+import Home from "./routes/Home/Home.component";
+import NoteContainer from "./components/note-container/note-container.component";
+import SignInPage from "./routes/Sign-in/sign-in.page.component";
+import SignUpPage from "./routes/Sign-up/sign-up.page.component";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />}>
+        <Route index element={<NoteContainer />} />
+        <Route path="sign-in" element={<SignInPage />} />
+        <Route path="sign-up" element={<SignUpPage />} />
+      </Route>
+    </Routes>
   );
 }
 
