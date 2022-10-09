@@ -1,27 +1,51 @@
 // jshint esversion:6
 import "./sign-up.styles.scss";
+import { nanoid } from "nanoid";
+
 import { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { NoteContext } from "../../contexts/note.context";
+import ClearIcon from "@mui/icons-material/Clear";
 
-import { nanoid } from "nanoid";
+import { NoteContext } from "../../contexts/note.context";
+import { ModalContext } from "../../contexts/modal.context";
 
 import { createNewUserWithEmailAndPassword } from "../../utils/firebase/firebase-auth.utils";
 
 function SignUp() {
   const { addNote } = useContext(NoteContext);
 
+  const { setShowModal, setShowAlert } = useContext(ModalContext);
+
   const navigate = useNavigate();
 
-  function handleNavigate() {
-    navigate("/sign-in");
+  const displayNameRef = useRef();
+
+  const emailRef = useRef();
+
+  const passwordRef = useRef();
+
+  const confirmPasswordRef = useRef();
+
+  function handleClear() {
+    setShowModal({ status: false, signin: true });
   }
 
-  const displayNameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
+  function handleNavigate() {
+    setShowModal({ status: true, signin: true });
+  }
+
+  function clearAlert() {
+    setTimeout(() => {
+      return setShowAlert({
+        alertStatus: false,
+        alertSeverity: "",
+        alertTitle: "",
+        alertMsg: "",
+        alertBoldMsg: "",
+      });
+    }, 3000);
+  }
 
   async function handleSubmit(e) {
     /* Prevent default refresh of page after form submit */
@@ -30,9 +54,29 @@ function SignUp() {
     const displayName = displayNameRef.current.value;
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+    const confirmPassword = confirmPasswordRef.current.value;
+
+    if (password !== confirmPassword) {
+      setShowAlert({
+        alertStatus: true,
+        alertSeverity: "error",
+        alertTitle: "Error",
+        alertMsg: "Passwords do not match",
+        alertBoldMsg: "try again!",
+      });
+      return;
+    }
 
     try {
       const { user } = await createNewUserWithEmailAndPassword(email, password);
+
+      setShowAlert({
+        alertStatus: true,
+        alertSeverity: "success",
+        alertTitle: "Success",
+        alertMsg: "Account creation successful",
+        alertBoldMsg: "Welcome",
+      });
 
       console.log("Created user");
       console.log(user);
@@ -43,13 +87,15 @@ function SignUp() {
       const defaultNotes = [
         {
           id: nanoid(),
-          title: `Welcome ${displayName}`,
-          body: "Try notes for free, an awesome way to create notes on different happenings around you",
+          date: new Date().getTime().toString(),
+          title: "Getting started",
+          body: "Try adding a new note! Dont't forget you can always delete notes you don't need",
         },
         {
           id: nanoid(),
-          title: "Getting started",
-          body: "Try adding a new note! Dont't forget you can always delete notes you don't need",
+          date: new Date().getTime().toString(),
+          title: `Welcome ${displayName}`,
+          body: "Try notes for free, an awesome way to create notes on different happenings around you",
         },
       ];
 
@@ -59,6 +105,9 @@ function SignUp() {
 
       console.log("Finished creating user");
       console.log(user);
+
+      handleClear();
+      clearAlert();
       navigate("/");
 
       /* Clear input form fields */
@@ -70,30 +119,70 @@ function SignUp() {
       console.log(errorCode);
       console.log("Error message");
       console.log(errorMessage);
+
+      let alert = {
+        alertStatus: true,
+        alertSeverity: "warning",
+        alertMsg: error.code,
+      };
+
+      switch (error.code) {
+        case "auth/network-request-failed":
+          setShowAlert({ ...alert, alertBoldMsg: "- check your connection" });
+          break;
+        case "auth/email-already-in-use":
+          setShowAlert({ ...alert });
+          break;
+        case "auth/weak-password":
+          setShowAlert({
+            ...alert,
+            alertMsg: "Password should be at least 6 characters",
+            alertBoldMsg: "- weak password",
+          });
+          break;
+        case "auth/too-many-requests":
+          setShowAlert({
+            ...alert,
+            alertMsg: "Account temporarily restricted!",
+            alertBoldMsg: "reset your passowrd",
+          });
+          break;
+        default:
+          setShowAlert({ ...alert, alertBoldMsg: "- try again" });
+          break;
+      }
     }
   }
   return (
-    <>
+    <div onClick={(e) => e.stopPropagation()}>
       <form
         className="sign-up-form-container"
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
+        <ClearIcon className="clear-icon" onClick={handleClear} />
         <h2>Create an account</h2>
-        <input type="text" placeholder="Display Name" ref={displayNameRef} />
-        <input type="text" placeholder="Email" ref={emailRef} />
+        <input
+          type="text"
+          placeholder="Display Name"
+          ref={displayNameRef}
+          required
+        />
+        <input type="text" placeholder="Email" ref={emailRef} required />
         <input
           type="password"
           name="password"
           placeholder="Password"
           ref={passwordRef}
+          required
         />
         <input
           type="password"
           name="password"
           placeholder="Confirm Password"
           ref={confirmPasswordRef}
+          required
         />
 
         <button className="login-btn" type="submit">
@@ -111,7 +200,7 @@ function SignUp() {
         </div>
         <button className="google-sign-in">LOGIN WITH GOOGLE</button>
       </form>
-    </>
+    </div>
   );
 }
 

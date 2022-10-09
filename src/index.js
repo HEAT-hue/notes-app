@@ -6,14 +6,17 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { UserContextProvider } from "./contexts/user.context";
 import { NoteProvider } from "./contexts/note.context";
+import { ModalContextProvider } from "./contexts/modal.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <UserContextProvider>
-      <NoteProvider>
-        <App />
-      </NoteProvider>
+      <ModalContextProvider>
+        <NoteProvider>
+          <App />
+        </NoteProvider>
+      </ModalContextProvider>
     </UserContextProvider>
   </BrowserRouter>
 );

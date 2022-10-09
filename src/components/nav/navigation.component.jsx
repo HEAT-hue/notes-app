@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
 
 import { UserContext } from "../../contexts/user.context";
+import { ModalContext } from "../../contexts/modal.context";
 import { signOutUser } from "../../utils/firebase/firebase-auth.utils";
 
 function Navigation() {
@@ -13,12 +14,15 @@ function Navigation() {
   const { currentUser } = useContext(UserContext);
   console.log(currentUser);
 
+  const { setShowModal } = useContext(ModalContext);
+
   function handleSignOut() {
     signOutUser();
   }
 
   function handleSignIn() {
-    navigate("/sign-in");
+    setShowModal({ status: true, signin: true });
+    return;
   }
 
   function handleNavigate() {

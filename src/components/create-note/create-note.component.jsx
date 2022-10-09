@@ -1,36 +1,58 @@
 // jshint esversion:6
 import "./create-note.styles.scss";
 import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
 
 import { useRef, useContext } from "react";
 import { NoteContext } from "../../contexts/note.context";
-// import { UserContext } from "../../contexts/user.context";
+import { UserContext } from "../../contexts/user.context";
+import { ModalContext } from "../../contexts/modal.context";
 
 import Button from "react-bootstrap/Button";
 
 function CreateNote() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Get props from context
   const { addNote } = useContext(NoteContext);
-  // const { currentUser } = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
+  const { setShowModal } = useContext(ModalContext);
 
   const noteTitleRef = useRef();
   const noteBodyRef = useRef();
 
-  async function handleClick() {
-    // if (!currentUser) navigate("/sign-in");
+  async function handleSubmit(e) {
+    // Prevent default action of forms
+    e.preventDefault();
+
+    if (!currentUser) {
+      setShowModal({ status: true, signin: true });
+      return;
+    }
 
     const title = noteTitleRef.current.value;
     const body = noteBodyRef.current.value;
 
-    const note = { id:nanoid(), title, body };
+    const note = {
+      id: nanoid(),
+      date: new Date().getTime().toString(),
+      title,
+      body,
+    };
     addNote(note);
+
+    // Clear fields
+    e.target.reset();
   }
 
   return (
     <div className="create-note-container">
-      <div className="form-container">
+      <form
+        className="form-container"
+        onSubmit={(e) => {
+          handleSubmit(e);
+        }}
+      >
         <input
           className="component note-title"
           type="text"
@@ -48,10 +70,10 @@ function CreateNote() {
           ref={noteBodyRef}
           required
         ></textarea>
-        <Button variant="success" onClick={handleClick}>
+        <Button variant="success" type={"submit"}>
           Add
         </Button>
-      </div>
+      </form>
     </div>
   );
 }

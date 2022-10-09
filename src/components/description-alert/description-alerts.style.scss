@@ -1,0 +1,15 @@
+.alert-container {
+  z-index: 20;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  //   margin: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  & .alert {
+    width: 50vw;
+    margin: auto;
+  }
+}
