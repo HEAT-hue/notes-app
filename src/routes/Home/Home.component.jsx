@@ -12,17 +12,18 @@ import Modal from "../../components/Modal/Modal.component";
 
 import DescriptionAlerts from "../../components/description-alert/description-alert.component";
 
+import EditNote from "../../components/edit-note/edit-note.component";
+
 function Home() {
-  const { showModal, showAlert } = useContext(ModalContext);
+  const { showModal, showAlert, showEditNote } = useContext(ModalContext);
 
   return (
     <div className="note-app-container">
       <Navigation />
-      {console.log("Alert")}
-      {console.log(showAlert)}
       {showAlert.alertStatus && <DescriptionAlerts />}
       <Outlet />
       {showModal.status && <Modal />}
+      {showEditNote.status && <EditNote note={showEditNote.note} />}
     </div>
   );
 }

@@ -58,7 +58,7 @@ function SignIn() {
         alertSeverity: "success",
         alertTitle: "Success",
         alertMsg: "Sign in successful",
-        alertBoldMsg: "Welcome",
+        alertBoldMsg: " - Welcome",
       });
 
       /* Remove sign in modal */

@@ -75,7 +75,7 @@ function SignUp() {
         alertSeverity: "success",
         alertTitle: "Success",
         alertMsg: "Account creation successful",
-        alertBoldMsg: "Welcome",
+        alertBoldMsg: " - Welcome",
       });
 
       console.log("Created user");

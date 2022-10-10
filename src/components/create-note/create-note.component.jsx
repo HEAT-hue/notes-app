@@ -26,6 +26,7 @@ function CreateNote() {
     e.preventDefault();
 
     if (!currentUser) {
+      e.target.reset();
       setShowModal({ status: true, signin: true });
       return;
     }

@@ -12,8 +12,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />}>
         <Route index element={<NoteContainer />} />
-        {/* <Route path="sign-in" element={<SignInPage />} />
-        <Route path="sign-up" element={<SignUpPage />} /> */}
       </Route>
     </Routes>
   );

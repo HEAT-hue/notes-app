@@ -50,7 +50,7 @@ export const NoteProvider = ({ children }) => {
       setShowAlert({
         alertStatus: true,
         alertSeverity: "success",
-        alertMsg: "Note deleted successfully",
+        alertMsg: "Note deleted online successfully",
       });
       clearAlert();
       return true;
@@ -85,7 +85,7 @@ export const NoteProvider = ({ children }) => {
       setShowAlert({
         alertStatus: true,
         alertSeverity: "success",
-        alertMsg: "Note added successfully",
+        alertMsg: "Note added online successfully",
       });
       clearAlert();
 
@@ -108,6 +108,7 @@ export const NoteProvider = ({ children }) => {
       return noteTask.status === false;
     });
 
+    clearAlert();
     setPendingNotes(undoneNoteTasks);
   }
 
@@ -116,6 +117,12 @@ export const NoteProvider = ({ children }) => {
     if (pendingNotes === undefined || pendingNotes.length === 0) return;
     console.log("Executing pending task");
     console.log(pendingNotes);
+    setShowAlert({
+      alertStatus: true,
+      alertSeverity: "info",
+      alertMsg: "Trying to sync data online",
+      alertBoldMsg: "",
+    });
 
     pendingNotes.forEach(async (noteTask) => {
       console.log("Note task");
@@ -159,7 +166,9 @@ export const NoteProvider = ({ children }) => {
   }, [currentUser]);
 
   async function addNote(note, userID = currentUser.uid) {
+    console.log("Note to add");
     const _note = { ...note, userID };
+    console.log(_note);
 
     // Add notes to offline storage for fast preview rendering
     setNoteList((prev) => {

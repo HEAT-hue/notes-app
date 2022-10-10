@@ -12,8 +12,19 @@ export const ModalContextProvider = ({ children }) => {
     alertMsg: "",
     alertBoldMsg: "",
   });
+  const [showEditNote, setShowEditNote] = useState({
+    status: false,
+    note: { title: "", body: "" },
+  });
 
-  const value = { showModal, setShowModal, showAlert, setShowAlert };
+  const value = {
+    showModal,
+    setShowModal,
+    showAlert,
+    setShowAlert,
+    showEditNote,
+    setShowEditNote,
+  };
 
   return (
     <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
