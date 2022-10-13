@@ -1,15 +1,17 @@
 .note-container {
-  display: inline-block;
-  width: 18rem;
-  padding: 10px;
-  background-color: hsl(0, 0%, 100%);
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
   min-height: 150px;
+  max-height: 250px;
+  width: 20rem;
   vertical-align: top;
-  border-radius: 5px;
-  margin: 0px 25px 25px 0;
-  text-align: left;
-  position: relative;
+  background-color: hsl(0, 0%, 100%);
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 0px 25px 25px 25px;
+  text-align: left;
   overflow: hidden;
 
   &:hover {
@@ -17,41 +19,47 @@
       rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   }
 
-  & h2 {
-    height: 20%;
-    color: rgb(34, 30, 30);
-    margin-bottom: 4px;
-    font-size: 1.3rem;
-  }
+  & .note-details {
+    & .note-title {
+      color: rgb(75, 73, 73);
+      margin-bottom: 4px;
+      font-size: 1.3rem;
+      text-shadow: 0px 1px 4px rgba(81, 67, 21, 0.249);
+    }
 
-  & p {
-    color: rgb(32, 31, 31);
-    height: 80%;
-  }
+    & .note-body {
+      color: rgb(98, 96, 96);
+      margin-bottom: 10px;
 
-  & .edit-icon {
-    height: 20%;
-    cursor: pointer;
-    color: rgb(169, 161, 161);
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-
-    &:hover {
-      color: rgb(91, 89, 89);
+      & .read-more-link {
+        color: blueviolet;
+        letter-spacing: 1px;
+        cursor: pointer;
+      }
     }
   }
 
-  & .delete-icon {
-    height: 20%;
-    cursor: pointer;
-    color: rgb(233, 51, 51);
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
+  & .note-icons {
+    display: flex;
+    justify-content: space-between;
+    & .edit-icon {
+      height: 20%;
+      cursor: pointer;
+      color: rgb(169, 161, 161);
 
-    &:hover {
-      color: red;
+      &:hover {
+        color: rgb(91, 89, 89);
+      }
+    }
+
+    & .delete-icon {
+      height: 20%;
+      cursor: pointer;
+      color: rgb(233, 51, 51);
+
+      &:hover {
+        color: red;
+      }
     }
   }
 }

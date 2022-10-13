@@ -10,7 +10,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { NoteContext } from "../../contexts/note.context";
 import { ModalContext } from "../../contexts/modal.context";
 
-import { createNewUserWithEmailAndPassword } from "../../utils/firebase/firebase-auth.utils";
+import {
+  signInWithGooglePopup,
+  createNewUserWithEmailAndPassword,
+} from "../../utils/firebase/firebase-auth.utils";
 
 function SignUp() {
   const { addNote } = useContext(NoteContext);
@@ -20,11 +23,8 @@ function SignUp() {
   const navigate = useNavigate();
 
   const displayNameRef = useRef();
-
   const emailRef = useRef();
-
   const passwordRef = useRef();
-
   const confirmPasswordRef = useRef();
 
   function handleClear() {
@@ -46,6 +46,12 @@ function SignUp() {
       });
     }, 3000);
   }
+
+  /* Sign in with Google */
+  const signUpWithGoogle = async () => {
+    /* Auth state lsitens for signed in user to create user doc */
+    await signInWithGooglePopup();
+  };
 
   async function handleSubmit(e) {
     /* Prevent default refresh of page after form submit */
@@ -81,9 +87,6 @@ function SignUp() {
       console.log("Created user");
       console.log(user);
 
-      // Create default user note
-      console.log("Creating default user notes");
-
       const defaultNotes = [
         {
           id: nanoid(),
@@ -109,9 +112,6 @@ function SignUp() {
       handleClear();
       clearAlert();
       navigate("/");
-
-      /* Clear input form fields */
-      e.target.reset();
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -148,7 +148,7 @@ function SignUp() {
           });
           break;
         default:
-          setShowAlert({ ...alert, alertBoldMsg: "- try again" });
+          setShowAlert({ ...alert, alertBoldMsg: " - try again" });
           break;
       }
     }
@@ -198,7 +198,9 @@ function SignUp() {
           <div id="line-break-text">or</div>
           <div className="line"></div>
         </div>
-        <button className="google-sign-in">LOGIN WITH GOOGLE</button>
+        <button className="google-sign-in" onClick={signUpWithGoogle}>
+          LOGIN WITH GOOGLE
+        </button>
       </form>
     </div>
   );

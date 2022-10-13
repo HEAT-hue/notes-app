@@ -1,3 +1,7 @@
+:root {
+  background-color: rgb(19, 75, 124);
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -6,13 +10,15 @@
 
 body {
   margin: 0;
+  padding-top: 12vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   background-color: #ede9f0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* font-family: 'Barlow',

@@ -4,7 +4,10 @@ import { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { SignInUserWithEmailAndPassword } from "../../utils/firebase/firebase-auth.utils";
+import {
+  signInWithGooglePopup,
+  signInUserWithEmailAndPassword,
+} from "../../utils/firebase/firebase-auth.utils";
 
 import { ModalContext } from "../../contexts/modal.context";
 
@@ -38,6 +41,44 @@ function SignIn() {
     }, 3000);
   }
 
+  async function signInWithGoogle() {
+    /* Remove sign in modal */
+    handleClear();
+
+    /* Auth state captures signed in user automatically */
+    const user = await signInWithGooglePopup();
+
+    if (!user) {
+      /* Inform user if successful */
+      setShowAlert({
+        alertStatus: true,
+        alertSeverity: "error",
+        alertTitle: "Success",
+        alertMsg: "Sign in failed",
+        alertBoldMsg: " - try again ",
+      });
+      return;
+    }
+
+    console.log("User details");
+    console.log(user);
+
+    /* Inform user if successful */
+    setShowAlert({
+      alertStatus: true,
+      alertSeverity: "success",
+      alertTitle: "Success",
+      alertMsg: "Sign in successful",
+      alertBoldMsg: " - Welcome",
+    });
+
+    /* Clear alert to user */
+    clearAlert();
+
+    /* Navigate to home page */
+    navigate("/");
+  }
+
   async function handleSubmit(e) {
     /* Prevent default refresh of page after form submit */
     e.preventDefault();
@@ -47,7 +88,7 @@ function SignIn() {
 
     try {
       /* Sign in a user */
-      await SignInUserWithEmailAndPassword(email, password);
+      await signInUserWithEmailAndPassword(email, password);
 
       /* Clear input form fields */
       e.target.reset();
@@ -119,7 +160,7 @@ function SignIn() {
   return (
     <div onClick={(e) => e.stopPropagation()}>
       <form
-        className="form-container"
+        className="sign-in__form-container"
         onSubmit={(e) => {
           handleSubmit(e);
         }}
@@ -146,7 +187,9 @@ function SignIn() {
           <div id="line-break-text">or</div>
           <div className="line"></div>
         </div>
-        <button className="google-sign-in">LOGIN WITH GOOGLE</button>
+        <button className="google-sign-in" onClick={signInWithGoogle}>
+          LOGIN WITH GOOGLE
+        </button>
       </form>
     </div>
   );

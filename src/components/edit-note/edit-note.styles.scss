@@ -1,36 +1,35 @@
 .edit-note-container {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
   background-color: rgba($color: #000000, $alpha: 0.5);
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   & .edit-form-container {
-    background-color: green;
-    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: black;
     width: 40vw;
-    min-width: 18rem;
-    margin: auto;
-    height: auto;
+    min-width: 20rem;
     background-color: #ffffff;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    outline: 1px solid coral;
 
-    & .clear-icon {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
+    .edit-note-header {
+      position: relative;
+
+      & .clear-icon {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        cursor: pointer;
+      }
     }
 
     & .edit-component {
@@ -51,9 +50,10 @@
 
     & .edit-note-body {
       padding: 10px 5px;
-      height: 9rem;
+      height: 10rem;
       overflow: auto;
       resize: none;
+      margin-block: 15px;
       // outline: 1px solid red;
     }
 

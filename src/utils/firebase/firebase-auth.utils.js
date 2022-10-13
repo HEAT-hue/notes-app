@@ -3,6 +3,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
@@ -10,30 +12,27 @@ import {
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
+/********************** Google Auth *****************************/
+// Instance of the Google auth provider Class:
+const GoogleProvider = new GoogleAuthProvider();
+
+// Specify custom parameter to send with the OAuth request
+GoogleProvider.setCustomParameters({
+  login_hint: "user@example.com",
+});
+
+// Export the Google Auth signin popup window to create an authenticated user
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, GoogleProvider);
+
+/********************** User Email and Password Auth *****************************/
 // Create new user
 export const createNewUserWithEmailAndPassword = async (email, password) => {
-  return await createUserWithEmailAndPassword(auth, email, password)
-    // .then((userCredential) => {
-    //   // Signed in
-    //   const user = userCredential.user;
-    //   console.log("User credentials");
-    //   console.log(user);
-    //   // ...
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   console.log("Error code");
-    //   console.log(errorCode);
-    //   console.log("Error message");
-    //   console.log(errorMessage);
-
-    //   // ..
-    // });
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
 
-export const SignInUserWithEmailAndPassword = async (email, password) => {
-  return await signInWithEmailAndPassword(auth, email, password)
+export const signInUserWithEmailAndPassword = async (email, password) => {
+  return await signInWithEmailAndPassword(auth, email, password);
 };
 
 export const onAuthStateChangedListner = async (callbackFunc) => {
