@@ -3,11 +3,26 @@
   margin: auto;
   padding: 45px 70px;
   background-color: #ffffff;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: rgba(0, 0, 0, 0.548) 0px 1px 4px;
+  border-radius: 5px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 580px) {
+    padding: 40px 50px;
+  }
+
+  @media (max-width: 546px) {
+    padding: 35px 45px;
+    width: 65vw;
+  }
+
+  @media (max-width: 447px) {
+    padding: 35px 45px;
+    width: 80vw;
+  }
 
   & .clear-icon {
     position: absolute;
@@ -41,9 +56,7 @@
   & .login-btn {
     cursor: pointer;
     display: block;
-    margin-left: auto;
     margin-bottom: 8px;
-    height: 38px;
     width: 100%;
   }
 
@@ -83,7 +96,5 @@
   & .google-sign-in {
     cursor: pointer;
     width: 100%;
-    color: red;
-    height: 38px;
   }
 }

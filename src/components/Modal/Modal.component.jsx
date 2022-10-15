@@ -11,7 +11,7 @@ function Modal() {
 
   return (
     <div
-      className="sign-in-container"
+      className="modal-container"
       onClick={() => setShowModal({ status: false, signin: true })}
     >
       {showModal.signin ? <SignIn /> : <SignUp />}

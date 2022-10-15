@@ -3,6 +3,7 @@ import "./sign-in.styles.scss";
 import { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
+import Button from "../button/button.component";
 
 import {
   signInWithGooglePopup,
@@ -175,9 +176,10 @@ function SignIn() {
           required
           ref={passwordRef}
         />
-        <button className="login-btn" type="submit">
-          Login
-        </button>
+        <Button className="login-btn" type="submit">
+          {" "}
+          Login{" "}
+        </Button>
         <div className="reg-pass-container">
           <span onClick={handleNavigate}>Sign Up Now</span>
           <span>forgot password</span>
@@ -187,9 +189,14 @@ function SignIn() {
           <div id="line-break-text">or</div>
           <div className="line"></div>
         </div>
-        <button className="google-sign-in" onClick={signInWithGoogle}>
-          LOGIN WITH GOOGLE
-        </button>
+
+        <Button
+          className="google-sign-in"
+          buttonType={"Google"}
+          onClick={signInWithGoogle}
+        >
+          GOOGLE SIGN IN
+        </Button>
       </form>
     </div>
   );

@@ -15,6 +15,8 @@ import {
   createNewUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase-auth.utils";
 
+import Button from "../button/button.component";
+
 function SignUp() {
   const { addNote } = useContext(NoteContext);
 
@@ -84,9 +86,6 @@ function SignUp() {
         alertBoldMsg: " - Welcome",
       });
 
-      console.log("Created user");
-      console.log(user);
-
       const defaultNotes = [
         {
           id: nanoid(),
@@ -105,9 +104,6 @@ function SignUp() {
       defaultNotes.forEach((note) => {
         addNote(note, user.uid);
       });
-
-      console.log("Finished creating user");
-      console.log(user);
 
       handleClear();
       clearAlert();
@@ -184,10 +180,10 @@ function SignUp() {
           ref={confirmPasswordRef}
           required
         />
-
-        <button className="login-btn" type="submit">
-          Register
-        </button>
+        <Button className="login-btn" type="submit">
+          {" "}
+          Register{" "}
+        </Button>
 
         <div className="reg-pass-container">
           <span></span>
@@ -198,9 +194,13 @@ function SignUp() {
           <div id="line-break-text">or</div>
           <div className="line"></div>
         </div>
-        <button className="google-sign-in" onClick={signUpWithGoogle}>
-          LOGIN WITH GOOGLE
-        </button>
+        <Button
+          className="google-sign-in"
+          buttonType={"Google"}
+          onClick={signUpWithGoogle}
+        >
+          GOOGLE SIGN IN
+        </Button>
       </form>
     </div>
   );

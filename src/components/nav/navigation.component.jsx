@@ -32,7 +32,7 @@ function Navigation() {
   return (
     <nav className="navigation">
       <div>
-        <h1>Note Keeper App</h1>
+        <h1>Notes</h1>
         <NoteAltIcon
           sx={{ fontSize: 34 }}
           onClick={handleNavigate}

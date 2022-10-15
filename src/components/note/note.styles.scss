@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: 150px;
-  max-height: 250px;
+  max-height: 280px;
   width: 20rem;
   vertical-align: top;
   background-color: hsl(0, 0%, 100%);
@@ -13,6 +13,14 @@
   margin: 0px 25px 25px 25px;
   text-align: left;
   overflow: hidden;
+
+  @media (max-width: 453px) {
+    width: 70vw;
+  }
+
+  @media (max-width: 348px) {
+    max-height: 320px;
+  }
 
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,

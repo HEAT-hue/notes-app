@@ -1,5 +1,6 @@
 .sign-in__form-container {
-  width: 25rem;
+  width: 60vw;
+  max-width: 25rem;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -7,9 +8,23 @@
   margin: auto;
   padding: 60px 70px;
   background-color: #ffffff;
-  outline: 1px solid red;
+  // outline: 1px solid red;
   box-shadow: rgba(0, 0, 0, 0.548) 0px 1px 4px;
   border-radius: 5px;
+
+  @media (max-width: 580px) {
+    padding: 40px 50px;
+  }
+
+  @media (max-width: 546px) {
+    padding: 35px 45px;
+    width: 65vw;
+  }
+
+  @media (max-width: 447px) {
+    padding: 35px 45px;
+    width: 80vw;
+  }
 
   & .clear-icon {
     position: absolute;
@@ -44,8 +59,6 @@
     display: block;
     margin-left: auto;
     margin-bottom: 8px;
-    height: 38px;
-    width: 30%;
   }
 
   & .reg-pass-container {
@@ -86,7 +99,7 @@
 
   & .google-sign-in {
     width: 100%;
-    color: red;
-    height: 38px;
+    // color: red;
+    // height: 38px;
   }
 }

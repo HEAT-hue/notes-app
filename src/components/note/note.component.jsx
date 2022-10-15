@@ -16,7 +16,7 @@ function Note(props) {
 
   const noteTitleDisplayLength = 23;
 
-  const noteBodyDisplayLength = 257;
+  const noteBodyDisplayLength = 250;
 
   const longNoteTite = note.title.length > noteTitleDisplayLength;
 
