@@ -181,7 +181,7 @@ function SignIn() {
           Login{" "}
         </Button>
         <div className="reg-pass-container">
-          <span onClick={handleNavigate}>Sign Up Now</span>
+          <span onClick={handleNavigate}>Register Now</span>
           <span>forgot password</span>
         </div>
         <div className="line-break">
