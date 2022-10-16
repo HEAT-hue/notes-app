@@ -13,18 +13,19 @@
   border-radius: 5px;
 
   @media (max-width: 580px) {
-    padding: 40px 50px;
+    padding: 35px 45px;
+    width: 75vw;
   }
 
-  @media (max-width: 546px) {
-    padding: 35px 45px;
-    width: 65vw;
-  }
+  // @media (max-width: 546px) {
+  //   padding: 35px 45px;
+  //   width: 65vw;
+  // }
 
-  @media (max-width: 447px) {
-    padding: 35px 45px;
-    width: 80vw;
-  }
+  // @media (max-width: 447px) {
+  //   padding: 35px 45px;
+  //   width: 80vw;
+  // }
 
   & .clear-icon {
     position: absolute;
