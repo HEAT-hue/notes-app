@@ -1,5 +1,4 @@
 // jshint esversion:6
-import "./navigation.styles.scss";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import NoteAltIcon from "@mui/icons-material/NoteAlt";
@@ -7,6 +6,8 @@ import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import { UserContext } from "../../contexts/user.context";
 import { ModalContext } from "../../contexts/modal.context";
 import { signOutUser } from "../../utils/firebase/firebase-auth.utils";
+
+import { NavigationEl, NavigationDescription, H1 } from "./navigation.styles";
 
 function Navigation() {
   const navigate = useNavigate();
@@ -30,15 +31,15 @@ function Navigation() {
   }
 
   return (
-    <nav className="navigation">
-      <div>
-        <h1>Notes</h1>
+    <NavigationEl>
+      <NavigationDescription>
+        <H1>Notes</H1>
         <NoteAltIcon
           sx={{ fontSize: 34 }}
           onClick={handleNavigate}
           style={{ cursor: "pointer" }}
         />
-      </div>
+      </NavigationDescription>
       {currentUser ? (
         <span onClick={handleSignOut} style={{ cursor: "pointer" }}>
           SIGN OUT
@@ -48,7 +49,7 @@ function Navigation() {
           SIGN IN
         </span>
       )}
-    </nav>
+    </NavigationEl>
   );
 }
 

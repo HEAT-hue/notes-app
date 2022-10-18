@@ -1,12 +1,17 @@
 // jshint esversion:6
-import "./note.styles.scss";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import { ModalContext } from "../../contexts/modal.context";
 
-// import Button from "react-bootstrap/Button";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {
+  Container,
+  NoteTitle,
+  NoteBody,
+  ReadMore,
+  NoteIcons,
+  EditNoteIcon,
+  DeleteNoteIcon,
+} from "./note.styles";
 
 function Note(props) {
   // destructure props
@@ -34,34 +39,31 @@ function Note(props) {
   }
 
   return (
-    <div className="note-container">
-      <div className="note-details">
+    <Container>
+      <div>
         {longNoteTite ? (
-          <h2 className="note-title">{shortTitle}...</h2>
+          <NoteTitle>{shortTitle}...</NoteTitle>
         ) : (
-          <h2 className="note-title">{note.title}</h2>
+          <NoteTitle>{note.title}</NoteTitle>
         )}
         {longNoteBody ? (
-          <p className="note-body">
+          <NoteBody>
             {shortNote}{" "}
-            <span className="read-more-link" onClick={handleEditClick}>
-               read more ...
-            </span>
-          </p>
+            <ReadMore onClick={handleEditClick}>read more ...</ReadMore>
+          </NoteBody>
         ) : (
-          <p className="note-body">{note.body}</p>
+          <NoteBody>{note.body}</NoteBody>
         )}
       </div>
-      <div className="note-icons">
-        <EditIcon className="edit-icon" onClick={handleEditClick} />
-        <DeleteIcon
-          className="delete-icon"
+      <NoteIcons>
+        <EditNoteIcon onClick={handleEditClick} />
+        <DeleteNoteIcon
           onClick={() => {
             if (window.confirm("Delete note?")) removeNote(note.id);
           }}
         />
-      </div>
-    </div>
+      </NoteIcons>
+    </Container>
   );
 }
 

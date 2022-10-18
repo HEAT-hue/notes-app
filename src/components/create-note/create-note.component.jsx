@@ -1,19 +1,23 @@
 // jshint esversion:6
-import "./create-note.styles.scss";
+// import "./create-note.styles.scss";
 import { nanoid } from "nanoid";
-import { useNavigate } from "react-router-dom";
 
 import { useRef, useContext } from "react";
 import { NoteContext } from "../../contexts/note.context";
 import { UserContext } from "../../contexts/user.context";
 import { ModalContext } from "../../contexts/modal.context";
 
-import Button from "react-bootstrap/Button";
+// Get styled Components
+import {
+  Container,
+  Form,
+  NoteTitle,
+  NoteBody,
+  AddButton,
+} from "./create-note.styles";
 
 function CreateNote() {
-  const navigate = useNavigate();
-
-  // Get props from context
+  // Get props from Contexts
   const { addNote } = useContext(NoteContext);
   const { currentUser } = useContext(UserContext);
   const { setShowModal } = useContext(ModalContext);
@@ -47,22 +51,20 @@ function CreateNote() {
   }
 
   return (
-    <div className="create-note-container">
-      <form
-        className="form-container"
+    <Container>
+      <Form
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
-        <input
-          className="component note-title"
+        <NoteTitle
           type="text"
           placeholder="Title"
           ref={noteTitleRef}
           required
         />
-        <textarea
-          className="component note-body"
+        <NoteBody
+          as="textarea"
           name=""
           id=""
           cols="30"
@@ -70,12 +72,10 @@ function CreateNote() {
           placeholder="Take a note..."
           ref={noteBodyRef}
           required
-        ></textarea>
-        <Button variant="success" type={"submit"}>
-          Add
-        </Button>
-      </form>
-    </div>
+        ></NoteBody>
+        <AddButton type="submit">Add</AddButton>
+      </Form>
+    </Container>
   );
 }
 export default CreateNote;

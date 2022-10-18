@@ -1,0 +1,11 @@
+import styled from "styled-components";
+
+export const Container = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color: #000000, $alpha: 0.35);
+  z-index: 30;
+`;

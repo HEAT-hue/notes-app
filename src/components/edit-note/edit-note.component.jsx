@@ -1,17 +1,23 @@
 // jshint esversion:6
-import "./edit-note.styles.scss";
 import { useRef, useContext } from "react";
 
-import ClearIcon from "@mui/icons-material/Clear";
 import { ModalContext } from "../../contexts/modal.context";
 import { NoteContext } from "../../contexts/note.context";
 import { UserContext } from "../../contexts/user.context";
 
+import {
+  Container,
+  Form,
+  FormHeader,
+  ClearForm,
+  FormTitle,
+  FormBody,
+  EditButton,
+} from "./edit-note.styles";
+
 function EditNote(props) {
   // destructure props
   const { note } = props;
-  console.log("Note to edit");
-  console.log(note);
 
   const { setShowEditNote, setShowModal } = useContext(ModalContext);
   const { addNote, removeNote } = useContext(NoteContext);
@@ -31,6 +37,7 @@ function EditNote(props) {
     });
   }
 
+  /* Submit Form */
   function handleSubmit(e) {
     // Prevent default action of forms refreshing page after submit
     e.preventDefault();
@@ -54,26 +61,24 @@ function EditNote(props) {
   }
 
   return (
-    <div className="edit-note-container" onClick={handleClear}>
-      <div className="edit-form-wrapper" onClick={(e) => e.stopPropagation()}>
-        <form
-          className="edit-form-container"
+    <Container onClick={handleClear}>
+      <div onClick={(e) => e.stopPropagation()}>
+        <Form
           onSubmit={(e) => {
             handleSubmit(e);
           }}
         >
-          <div className="edit-note-header">
-            <ClearIcon className="clear-icon" onClick={handleClear} />
-            <input
-              className="edit-component edit-note-title"
+          <FormHeader>
+            <ClearForm onClick={handleClear} />
+            <FormTitle
               type="text"
               defaultValue={note.title}
               ref={noteTitleRef}
               required
             />
-          </div>
-          <textarea
-            className="edit-component edit-note-body"
+          </FormHeader>
+          <FormBody
+            as="textarea"
             name=""
             id=""
             cols="30"
@@ -81,13 +86,11 @@ function EditNote(props) {
             defaultValue={note.body}
             ref={noteBodyRef}
             required
-          ></textarea>
-          <button type="submit" className="edit-btn edit-btn-success">
-            Edit note
-          </button>
-        </form>
+          ></FormBody>
+          <EditButton type="submit">Edit note</EditButton>
+        </Form>
       </div>
-    </div>
+    </Container>
   );
 }
 

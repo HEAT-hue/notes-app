@@ -1,21 +1,30 @@
 // jshint esversion:6
-import "./sign-up.styles.scss";
 import { nanoid } from "nanoid";
 
 import { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-import ClearIcon from "@mui/icons-material/Clear";
-
 import { NoteContext } from "../../contexts/note.context";
 import { ModalContext } from "../../contexts/modal.context";
 
+/* Styled Components */
 import {
   signInWithGooglePopup,
   createNewUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase-auth.utils";
 
-import Button from "../button/button.component";
+import {
+  Container,
+  ClearModal,
+  H2,
+  Input,
+  LoginButton,
+  RegOption,
+  LineBreak,
+  Line,
+  LineBreakText,
+  GoogleButton,
+} from "./sign-up.styles";
 
 function SignUp() {
   const { addNote } = useContext(NoteContext);
@@ -51,8 +60,41 @@ function SignUp() {
 
   /* Sign in with Google */
   const signUpWithGoogle = async () => {
+    /* Remove sign in modal */
+    handleClear();
+
     /* Auth state lsitens for signed in user to create user doc */
-    await signInWithGooglePopup();
+    const user = await signInWithGooglePopup();
+
+    if (!user) {
+      /* Inform user if successful */
+      setShowAlert({
+        alertStatus: true,
+        alertSeverity: "error",
+        alertTitle: "Success",
+        alertMsg: "Sign in failed",
+        alertBoldMsg: " - try again ",
+      });
+
+      /* Clear alert to user */
+      clearAlert();
+      return;
+    }
+
+    /* Inform user if successful */
+    setShowAlert({
+      alertStatus: true,
+      alertSeverity: "success",
+      alertTitle: "Success",
+      alertMsg: "Sign in successful",
+      alertBoldMsg: " - Welcome",
+    });
+
+    /* Clear alert to user */
+    clearAlert();
+
+    /* Navigate to home page */
+    navigate("/");
   };
 
   async function handleSubmit(e) {
@@ -151,57 +193,55 @@ function SignUp() {
   }
   return (
     <div onClick={(e) => e.stopPropagation()}>
-      <form
-        className="sign-up-form-container"
+      <Container
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
-        <ClearIcon className="clear-icon" onClick={handleClear} />
-        <h2>Create an account</h2>
-        <input
+        <ClearModal onClick={handleClear} />
+        <H2>Create an account</H2>
+        <Input
           type="text"
           placeholder="Display Name"
           ref={displayNameRef}
           required
         />
-        <input type="text" placeholder="Email" ref={emailRef} required />
-        <input
+        <Input type="text" placeholder="Email" ref={emailRef} required />
+        <Input
           type="password"
           name="password"
           placeholder="Password"
           ref={passwordRef}
           required
         />
-        <input
+        <Input
           type="password"
           name="password"
           placeholder="Confirm Password"
           ref={confirmPasswordRef}
           required
         />
-        <Button className="login-btn" type="submit">
-          {" "}
-          Register{" "}
-        </Button>
+        <LoginButton type="submit"> Register </LoginButton>
 
-        <div className="reg-pass-container">
+        <RegOption>
           <span></span>
           <span onClick={handleNavigate}>Sign in if account exists</span>
-        </div>
-        <div className="line-break">
-          <div className="line"></div>
-          <div id="line-break-text">or</div>
-          <div className="line"></div>
-        </div>
-        <Button
-          className="google-sign-in"
+        </RegOption>
+
+        <LineBreak>
+          <Line />
+          <LineBreakText>or</LineBreakText>
+          <Line />
+        </LineBreak>
+
+        <GoogleButton
           buttonType={"Google"}
+          type="button"
           onClick={signUpWithGoogle}
         >
           GOOGLE SIGN IN
-        </Button>
-      </form>
+        </GoogleButton>
+      </Container>
     </div>
   );
 }

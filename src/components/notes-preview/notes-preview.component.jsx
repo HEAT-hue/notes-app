@@ -2,20 +2,21 @@
 import { useContext } from "react";
 
 import Note from "../note/note.component";
-import "./notes-preview.styles.scss";
 
 import { NoteContext } from "../../contexts/note.context";
+
+import { Container } from "./notes-preview.styles";
 
 function NotesPreview(props) {
   // destructure props
   const { noteList, removeNote } = useContext(NoteContext);
 
   return (
-    <div className="notes-preview-container">
+    <Container>
       {noteList.map((noteItem) => (
         <Note key={noteItem.id} note={noteItem} removeNote={removeNote} />
       ))}
-    </div>
+    </Container>
   );
 }
 

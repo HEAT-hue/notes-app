@@ -1,6 +1,4 @@
 // jshint esversion:6
-import "./home.styles.scss";
-
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 

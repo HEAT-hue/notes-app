@@ -14,6 +14,7 @@ import {
   query,
   orderBy,
 } from "firebase/firestore";
+
 import db from "../utils/firebase/firestore.util";
 
 export const NoteContext = createContext({
@@ -26,9 +27,7 @@ export const NoteContext = createContext({
 export const NoteProvider = ({ children }) => {
   const { currentUser } = useContext(UserContext);
   const { setShowAlert } = useContext(ModalContext);
-
   const [noteList, setNoteList] = useState([]);
-
   const [pendingNotes, setPendingNotes] = useState([]);
 
   /* Clear alert sent to user after 3000ms */
@@ -70,17 +69,11 @@ export const NoteProvider = ({ children }) => {
 
   async function addNoteOnline(note) {
     try {
-      console.log("Trying to add data to firestore");
-      console.log(note);
-
       // Refernce to the document created (db_name, collectionID, docID)
       const docRef = doc(db, note.userID, note.id);
 
       // Add data to created document
       await setDoc(docRef, note);
-
-      console.log("Document written with ID: ", docRef.id);
-      console.log("User collection ID: ", note.userID);
 
       setShowAlert({
         alertStatus: true,
@@ -88,10 +81,8 @@ export const NoteProvider = ({ children }) => {
         alertMsg: "Note added online successfully",
       });
       clearAlert();
-
       return true;
     } catch (e) {
-      console.log("Error adding document: ", e);
       setShowAlert({
         alertStatus: true,
         alertSeverity: "error",
@@ -115,8 +106,6 @@ export const NoteProvider = ({ children }) => {
   useEffect(() => {
     // If no task, exit
     if (pendingNotes === undefined || pendingNotes.length === 0) return;
-    console.log("Executing pending task");
-    console.log(pendingNotes);
     setShowAlert({
       alertStatus: true,
       alertSeverity: "info",
@@ -125,27 +114,20 @@ export const NoteProvider = ({ children }) => {
     });
 
     pendingNotes.forEach(async (noteTask) => {
-      console.log("Note task");
       console.log(noteTask);
       if (noteTask.operation === "add") {
         noteTask.status = await addNoteOnline(noteTask.data);
       } else if (noteTask.operation === "del") {
         noteTask.status = await deleteNoteOnline(noteTask.data);
       }
-      console.log(noteTask.status);
-      console.log("Trying to clear pending tasks");
       clearPendingTasks();
     });
-
-    console.log("Pending Notes");
-    console.log(pendingNotes);
   }, [pendingNotes]);
 
   useEffect(() => {
     const fetchNotes = async () => {
       let newList = [];
       const collectionID = currentUser ? currentUser.uid : "b0a5-580d7251a637";
-      console.log("collectionID used", collectionID);
 
       const notesRef = collection(db, collectionID);
 
@@ -155,7 +137,6 @@ export const NoteProvider = ({ children }) => {
 
       querySnapshot.forEach((doc) => {
         const data = { id: doc.id, ...doc.data() };
-        console.log(data);
         newList.push(data);
       });
 
@@ -166,9 +147,8 @@ export const NoteProvider = ({ children }) => {
   }, [currentUser]);
 
   async function addNote(note, userID = currentUser.uid) {
-    console.log("Note to add");
+    // Create Note
     const _note = { ...note, userID };
-    console.log(_note);
 
     // Add notes to offline storage for fast preview rendering
     setNoteList((prev) => {
@@ -187,7 +167,6 @@ export const NoteProvider = ({ children }) => {
   async function removeNote(id) {
     if (!currentUser) return;
 
-    console.log("Deleting note with id:", id);
     // Delete note from offline storage
     const newNotes = noteList.filter((note) => {
       return note.id !== id;

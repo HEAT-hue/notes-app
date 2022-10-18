@@ -1,9 +1,6 @@
 // jshint esversion:6
-import "./sign-in.styles.scss";
 import { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import ClearIcon from "@mui/icons-material/Clear";
-import Button from "../button/button.component";
 
 import {
   signInWithGooglePopup,
@@ -11,6 +8,20 @@ import {
 } from "../../utils/firebase/firebase-auth.utils";
 
 import { ModalContext } from "../../contexts/modal.context";
+
+import {
+  Form,
+  ClearModal,
+  H2,
+  Input,
+  LoginButton,
+  RegOptionsContainer,
+  RegOption,
+  LineBreak,
+  Line,
+  LineBreakText,
+  GoogleButton,
+} from "./sign-in.styles";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -60,9 +71,6 @@ function SignIn() {
       });
       return;
     }
-
-    console.log("User details");
-    console.log(user);
 
     /* Inform user if successful */
     setShowAlert({
@@ -160,44 +168,40 @@ function SignIn() {
 
   return (
     <div onClick={(e) => e.stopPropagation()}>
-      <form
-        className="sign-in__form-container"
+      <Form
         onSubmit={(e) => {
           handleSubmit(e);
         }}
       >
-        <ClearIcon className="clear-icon" onClick={handleClear} />
-        <h2>Sign In</h2>
-        <input type="text" placeholder="Email" ref={emailRef} required />
-        <input
+        <ClearModal onClick={handleClear} />
+        <H2>Sign In</H2>
+        <Input type="text" placeholder="Email" ref={emailRef} required />
+        <Input
           type="password"
           name="password"
           placeholder="Password"
           required
           ref={passwordRef}
         />
-        <Button className="login-btn" type="submit">
-          {" "}
-          Login{" "}
-        </Button>
-        <div className="reg-pass-container">
-          <span onClick={handleNavigate}>Register Now</span>
-          <span>forgot password</span>
-        </div>
-        <div className="line-break">
-          <div className="line"></div>
-          <div id="line-break-text">or</div>
-          <div className="line"></div>
-        </div>
+        <LoginButton type="submit"> Login </LoginButton>
+        <RegOptionsContainer>
+          <RegOption onClick={handleNavigate}>Register Now</RegOption>
+          <RegOption>forgot password</RegOption>
+        </RegOptionsContainer>
+        <LineBreak>
+          <Line />
+          <LineBreakText>or</LineBreakText>
+          <Line />
+        </LineBreak>
 
-        <Button
-          className="google-sign-in"
+        <GoogleButton
+          type="button"
           buttonType={"Google"}
           onClick={signInWithGoogle}
         >
           GOOGLE SIGN IN
-        </Button>
-      </form>
+        </GoogleButton>
+      </Form>
     </div>
   );
 }

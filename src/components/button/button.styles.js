@@ -21,12 +21,6 @@ export const BaseButton = styled.button`
   -webkit-user-select: none;
   touch-action: manipulation;
 
-  /* @media (min-width: 768px) {
-    .button-37 {
-      padding: 10px 30px;
-    }
-  } */
-
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.15) 0 3px 9px 0;
     background-color: rgb(19, 75, 124);
