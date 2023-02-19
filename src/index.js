@@ -10,15 +10,17 @@ import { ModalContextProvider } from "./contexts/modal.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <UserContextProvider>
-      <ModalContextProvider>
-        <NoteProvider>
-          <App />
-        </NoteProvider>
-      </ModalContextProvider>
-    </UserContextProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <UserContextProvider>
+        <ModalContextProvider>
+          <NoteProvider>
+            <App />
+          </NoteProvider>
+        </ModalContextProvider>
+      </UserContextProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

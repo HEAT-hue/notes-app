@@ -221,7 +221,7 @@ function SignUp() {
           ref={confirmPasswordRef}
           required
         />
-        <LoginButton type="submit"> Register </LoginButton>
+        <LoginButton type="submit" onClick={(e) => handleSubmit(e)}> Register </LoginButton>
 
         <RegOption>
           <span></span>
